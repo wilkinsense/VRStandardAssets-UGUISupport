@@ -12,18 +12,18 @@ namespace VRStandardAssets.Utils
         public event Action<RaycastHit> OnRaycasthit;                   // This event is called every frame that the user's gaze is over a collider.
 
 
-        [SerializeField] private Transform m_Camera;
-        [SerializeField] private LayerMask m_ExclusionLayers;           // Layers to exclude from the raycast.
-        [SerializeField] private Reticle m_Reticle;                     // The reticle, if applicable.
-        [SerializeField] private VRInput m_VrInput;                     // Used to call input based events on the current VRInteractiveItem.
-        [SerializeField] private bool m_ShowDebugRay;                   // Optionally show the debug ray.
-        [SerializeField] private float m_DebugRayLength = 5f;           // Debug ray length.
-        [SerializeField] private float m_DebugRayDuration = 1f;         // How long the Debug ray will remain visible.
-        [SerializeField] private float m_RayLength = 500f;              // How far into the scene the ray is cast.
+        [SerializeField] protected Transform m_Camera;
+        [SerializeField] protected LayerMask m_ExclusionLayers;           // Layers to exclude from the raycast.
+        [SerializeField] protected Reticle m_Reticle;                     // The reticle, if applicable.
+        [SerializeField] protected VRInput m_VrInput;                     // Used to call input based events on the current VRInteractiveItem.
+        [SerializeField] protected bool m_ShowDebugRay;                   // Optionally show the debug ray.
+        [SerializeField] protected float m_DebugRayLength = 5f;           // Debug ray length.
+        [SerializeField] protected float m_DebugRayDuration = 1f;         // How long the Debug ray will remain visible.
+        [SerializeField] protected float m_RayLength = 500f;              // How far into the scene the ray is cast.
 
         
-        private VRInteractiveItem m_CurrentInteractible;                //The current interactive item
-        private VRInteractiveItem m_LastInteractible;                   //The last interactive item
+        protected VRInteractiveItem m_CurrentInteractible;                //The current interactive item
+        protected VRInteractiveItem m_LastInteractible;                   //The last interactive item
 
 
         // Utility for other classes to get the current interactive item
@@ -33,7 +33,7 @@ namespace VRStandardAssets.Utils
         }
 
         
-        private void OnEnable()
+        protected void OnEnable()
         {
             m_VrInput.OnClick += HandleClick;
             m_VrInput.OnDoubleClick += HandleDoubleClick;
@@ -42,7 +42,7 @@ namespace VRStandardAssets.Utils
         }
 
 
-        private void OnDisable ()
+        protected void OnDisable ()
         {
             m_VrInput.OnClick -= HandleClick;
             m_VrInput.OnDoubleClick -= HandleDoubleClick;
@@ -51,13 +51,13 @@ namespace VRStandardAssets.Utils
         }
 
 
-        private void Update()
+        protected void Update()
         {
             EyeRaycast();
         }
 
       
-        private void EyeRaycast()
+        protected virtual void EyeRaycast()
         {
             // Show the debug ray if required
             if (m_ShowDebugRay)
@@ -89,8 +89,7 @@ namespace VRStandardAssets.Utils
                 if (m_Reticle)
                     m_Reticle.SetPosition(hit);
 
-                if (OnRaycasthit != null)
-                    OnRaycasthit(hit);
+                InvokeOnRaycastHitEvent(hit);
             }
             else
             {
@@ -105,7 +104,7 @@ namespace VRStandardAssets.Utils
         }
 
 
-        private void DeactiveLastInteractible()
+        protected void DeactiveLastInteractible()
         {
             if (m_LastInteractible == null)
                 return;
@@ -115,32 +114,40 @@ namespace VRStandardAssets.Utils
         }
 
 
-        private void HandleUp()
+        protected void HandleUp()
         {
             if (m_CurrentInteractible != null)
                 m_CurrentInteractible.Up();
         }
 
 
-        private void HandleDown()
+        protected void HandleDown()
         {
             if (m_CurrentInteractible != null)
                 m_CurrentInteractible.Down();
         }
 
 
-        private void HandleClick()
+        protected void HandleClick()
         {
             if (m_CurrentInteractible != null)
                 m_CurrentInteractible.Click();
         }
 
 
-        private void HandleDoubleClick()
+        protected void HandleDoubleClick()
         {
             if (m_CurrentInteractible != null)
                 m_CurrentInteractible.DoubleClick();
 
+        }
+
+        // Added to handle setting an Event from a derived class.
+        protected void InvokeOnRaycastHitEvent(RaycastHit hit)
+        {
+            if(OnRaycasthit != null) {
+                OnRaycasthit(hit);
+            }
         }
     }
 }

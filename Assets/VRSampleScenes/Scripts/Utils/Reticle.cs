@@ -67,13 +67,20 @@ namespace VRStandardAssets.Utils
         // This overload of SetPosition is used when the VREyeRaycaster has hit something.
         public void SetPosition (RaycastHit hit)
         {
-            m_ReticleTransform.position = hit.point;
-            m_ReticleTransform.localScale = m_OriginalScale * hit.distance;
-            
+            SetPosition(hit.point, hit.distance, hit.normal);
+        }
+
+
+        // This overload of SetPosition is used when the VREyeRaycaster has hit something.
+        public void SetPosition(Vector3 point, float distance, Vector3 normal) 
+        {
+            m_ReticleTransform.position = point;
+            m_ReticleTransform.localScale = m_OriginalScale * distance;
+
             // If the reticle should use the normal of what has been hit...
             if (m_UseNormal)
                 // ... set it's rotation based on it's forward vector facing along the normal.
-                m_ReticleTransform.rotation = Quaternion.FromToRotation (Vector3.forward, hit.normal);
+                m_ReticleTransform.rotation = Quaternion.FromToRotation (Vector3.forward, normal);
             else
                 // However if it isn't using the normal then it's local rotation should be as it was originally.
                 m_ReticleTransform.localRotation = m_OriginalRotation;

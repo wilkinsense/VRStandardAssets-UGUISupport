@@ -13,6 +13,7 @@ PlayerSettings:
   productName: VRSamples
   defaultCursor: {fileID: 0}
   cursorHotspot: {x: 0, y: 0}
+  m_SplashScreenStyle: 0
   m_ShowUnitySplashScreen: 1
   m_VirtualRealitySplashScreen: {fileID: 0}
   defaultScreenWidth: 1024
@@ -24,7 +25,7 @@ PlayerSettings:
   m_ActiveColorSpace: 0
   m_MTRendering: 1
   m_MobileMTRendering: 1
-  m_Stereoscopic3D: 0
+  m_StackTraceTypes: 010000000100000001000000010000000100000001000000
   iosShowActivityIndicatorOnLoading: -1
   androidShowActivityIndicatorOnLoading: -1
   iosAppInBackgroundBehavior: 0
@@ -50,6 +51,7 @@ PlayerSettings:
   resizableWindow: 0
   useMacAppStoreValidation: 0
   gpuSkinning: 1
+  graphicsJobs: 0
   xboxPIXTextureCapture: 0
   xboxEnableAvatar: 0
   xboxEnableKinect: 0
@@ -68,6 +70,7 @@ PlayerSettings:
   n3dsEnableSharedListOpt: 1
   n3dsEnableVSync: 0
   uiUse16BitDepthBuffer: 0
+  ignoreAlphaClear: 0
   xboxOneResolution: 0
   ps3SplashScreen: {fileID: 0}
   videoMemoryForVertexBuffers: 0
@@ -92,9 +95,9 @@ PlayerSettings:
   bundleVersion: 1.0
   preloadedAssets: []
   metroEnableIndependentInputSource: 0
-  metroEnableLowLatencyPresentationAPI: 0
   xboxOneDisableKinectGpuReservation: 0
-  virtualRealitySupported: 1
+  singlePassStereoRendering: 0
+  protectGraphicsMemory: 0
   productGUID: 5a86b210c1fdd0a47944fb1e9e3bc5bd
   AndroidBundleVersionCode: 1
   AndroidMinSdkVersion: 21
@@ -133,6 +136,9 @@ PlayerSettings:
   iPadLandscapeSplashScreen: {fileID: 0}
   iPadHighResLandscapeSplashScreen: {fileID: 0}
   appleTVSplashScreen: {fileID: 0}
+  tvOSSmallIconLayers: []
+  tvOSLargeIconLayers: []
+  tvOSTopShelfImageLayers: []
   iOSLaunchScreenType: 0
   iOSLaunchScreenPortrait: {fileID: 0}
   iOSLaunchScreenLandscape: {fileID: 0}
@@ -151,6 +157,7 @@ PlayerSettings:
   iOSLaunchScreeniPadSize: 100
   iOSLaunchScreeniPadCustomXibPath: 
   iOSDeviceRequirements: []
+  iOSURLSchemes: []
   AndroidTargetDevice: 0
   AndroidSplashScreenScale: 0
   androidSplashScreen: {fileID: 0}
@@ -182,6 +189,12 @@ PlayerSettings:
   m_BuildTargetGraphicsAPIs:
   - m_BuildTarget: WindowsStandaloneSupport
     m_APIs: 0200000001000000
+    m_Automatic: 1
+  - m_BuildTarget: LinuxStandaloneSupport
+    m_APIs: 1100000000000000
+    m_Automatic: 1
+  - m_BuildTarget: MacStandaloneSupport
+    m_APIs: 110000000000000010000000
     m_Automatic: 1
   webPlayerTemplate: APPLICATION:Default
   m_TemplateCustomTags: {}
@@ -370,24 +383,6 @@ PlayerSettings:
   metroFTAFileTypes: []
   metroProtocolName: 
   metroCompilationOverrides: 1
-  blackberryDeviceAddress: 
-  blackberryDevicePassword: 
-  blackberryTokenPath: 
-  blackberryTokenExires: 
-  blackberryTokenAuthor: 
-  blackberryTokenAuthorId: 
-  blackberryCskPassword: 
-  blackberrySaveLogPath: 
-  blackberrySharedPermissions: 0
-  blackberryCameraPermissions: 0
-  blackberryGPSPermissions: 0
-  blackberryDeviceIDPermissions: 0
-  blackberryMicrophonePermissions: 0
-  blackberryGamepadSupport: 0
-  blackberryBuildId: 0
-  blackberryLandscapeSplashScreen: {fileID: 0}
-  blackberryPortraitSplashScreen: {fileID: 0}
-  blackberrySquareSplashScreen: {fileID: 0}
   tizenProductDescription: 
   tizenProductURL: 
   tizenSigningProfileName: 
@@ -454,10 +449,14 @@ PlayerSettings:
   iOS::EnableIncrementalBuildSupportForIl2cpp: 0
   iOS::ScriptingBackend: 1
   boolPropertyNames:
+  - Android::VR::enable
+  - Standalone::VR::enable
   - WebGL::analyzeBuildSize
   - WebGL::dataCaching
   - WebGL::useEmbeddedResources
   - XboxOne::enus
+  Android::VR::enable: 1
+  Standalone::VR::enable: 1
   WebGL::analyzeBuildSize: 0
   WebGL::dataCaching: 0
   WebGL::useEmbeddedResources: 0
@@ -469,6 +468,13 @@ PlayerSettings:
   WebGL::emscriptenArgs: 
   WebGL::template: APPLICATION:Default
   additionalIl2CppArgs::additionalIl2CppArgs: 
+  vectorPropertyNames:
+  - Android::VR::enabledDevices
+  - Standalone::VR::enabledDevices
+  Android::VR::enabledDevices:
+  - Oculus
+  Standalone::VR::enabledDevices:
+  - Oculus
   cloudProjectId: 
   projectName: 
   organizationId: 
